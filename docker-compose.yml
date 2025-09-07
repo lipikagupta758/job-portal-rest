@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8081:8081"
+    networks:
+      - my_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: org
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+volumes:
+  postgres_data:
+
+networks:
+  my_network:
+
