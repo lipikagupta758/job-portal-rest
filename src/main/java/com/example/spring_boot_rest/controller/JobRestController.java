@@ -1,6 +1,7 @@
 package com.example.spring_boot_rest.controller;
 
 import com.example.spring_boot_rest.model.JobPost;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -54,9 +55,16 @@ public class JobRestController {
 //    }
 
     @PostMapping(value= "/jobPost" , consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> postJob(@RequestPart("jobPost") JobPost jobPost, @RequestPart("image") MultipartFile image){
+    public ResponseEntity<?> postJob(@RequestPart("jobPost") String jobPostJson, @RequestPart("image") MultipartFile image){
         JobPost job= null;
+
         try {
+            // Convert jobPostJson to JobPost object
+            ObjectMapper mapper = new ObjectMapper();
+            JobPost jobPost = mapper.readValue(jobPostJson, JobPost.class);
+//          System.out.println("Received jobPostJson: " + jobPostJson);
+//          System.out.println("Received image: " + (image != null ? image.getOriginalFilename() : "null"));
+
             job = service.addJob(jobPost, image);
             return new ResponseEntity<>(job, HttpStatus.CREATED);
         }

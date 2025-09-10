@@ -18,11 +18,11 @@ import java.util.List;
 public class JobPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   //This will automatically create the postId
-    private int postId;
+    private Integer postId;
     private String postProfile;
     private String postDesc;
-    private int reqExperience;
-    private List<String> postTechStack;
+    private Integer reqExperience;
+    private String postTechStack;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")   //This helps to change the format of date visible on front-end
     private Date jobPostDate;
 
@@ -30,7 +30,7 @@ public class JobPost {
     @Lob  //LargeObject
     private byte[] imageData;
 
-    public JobPost(int postId, String postProfile, String postDesc, int reqExperience, List<String> postTechStack, Date jobPostDate, String imageType, byte[] imageData) {
+    public JobPost(int postId, String postProfile, String postDesc, int reqExperience, String postTechStack, Date jobPostDate, String imageType, byte[] imageData) {
         this.postId = postId;
         this.postProfile = postProfile;
         this.postDesc = postDesc;
